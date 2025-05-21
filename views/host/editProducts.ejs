@@ -1,0 +1,155 @@
+<%- include('../partials/head') %>
+<style>
+  /* Navbar Styles */
+  header {
+    background-color: #1f2937;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li.logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+
+  li.logo a {
+    color: #60a5fa;
+    text-decoration: none;
+  }
+
+  a {
+    color: #d1d5db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 1rem;
+  }
+
+  a:hover {
+    color: #93c5fd;
+  }
+
+  @media (max-width: 768px) {
+    ul {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  /* Form Styles */
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafb;
+    margin: 0;
+    padding: 2rem;
+  }
+
+  .form-container {
+    max-width: 600px;
+    margin: auto;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #1f2937;
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #374151;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+
+  input:focus {
+    border-color: #3b82f6;
+    outline: none;
+  }
+
+  button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #3b82f6;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #2563eb;
+  }
+</style>
+</head>
+<body>
+  <%- include('../partials/nav') %>
+  <div class="form-container">
+    <h2><%= editing ? "Edit the product details" :"Add New Product"%></h2>
+    <form action="/host/<%= editing ? 'edit-products': 'host-products' %>" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="<%= editing? product._id :'' %>" />
+      <div class="form-group">
+        <label for="name">Product Name</label>
+        <input type="text" id="name"
+        value="<%= editing ? product.productName : '' %>" name="productName" placeholder="Enter product name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price (in ₹)</label>
+        <input type="number" id="price" 
+        value="<%= editing ? product.price :'' %>" name="price" placeholder="Enter price" required>
+      </div>
+
+      <div class="form-group">
+        <label for="seller">Seller Name</label>
+        <input type="text" id="seller"
+        value="<%= editing ? product.sellerName : '' %>" name="sellerName" placeholder="Enter seller name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="image">Image URL</label>
+        <input type="file" id="image"
+        name="photo" accept="image/jpg,image/png,image/jpeg" >
+      </div>
+      <button><%= editing ? "Update" : "Submit" %></button>
+    </form>
+</div>
+</body>
+</html>
+

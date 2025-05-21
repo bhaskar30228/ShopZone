@@ -1,0 +1,172 @@
+<%- include('../partials/head') %>
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafb;
+    color: #111827;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .hero {
+    background-color: #1f2937;
+    color: white;
+    padding: 4rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin-bottom: 3rem;
+  }
+
+  .hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+  }
+
+  .btn {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: #2563eb;
+  }
+
+  /* Home List Styling */
+  .home-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem auto;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .home-item {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .home-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  }
+
+  .product-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .product-info {
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .home-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin: 0.5rem 0;
+  }
+
+  .home-price,
+  .home-seller {
+    margin: 0.25rem 0;
+    color: #4b5563;
+    font-size: 0.95rem;
+  }
+
+  button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #2563eb;
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+    }
+  }
+  .details-btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  background-color: #10b981; /* teal */
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: white;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.details-btn:hover {
+  background-color: #059669;
+}
+
+</style>
+
+</head>
+<body>
+  <%- include('../partials/nav') %> 
+  <ul class="home-list">
+    <% registeredProducts.forEach(product => { %>
+      <li class="home-item">
+        <img 
+        src="<%= product.photo %>" 
+        alt="Chocolate Product" 
+        class="product-img"
+      >
+      
+        <div class="product-info">
+          <h3 class="home-name"><%= product.productName %></h3>
+          <p class="home-price">₹<%= product.price %></p>
+          <p class="home-seller">Seller: <%= product.sellerName %></p>
+          <a href="/homes/<%= product._id %>" class="btn details-btn">Details</a>
+          <%- include('../partials/favorites',{product:product}) %>
+        </div>
+      </li>
+    <% }) %> 
+  </ul>
+</body>
+</html>
